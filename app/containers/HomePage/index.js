@@ -10,15 +10,35 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+import VideoList from 'components/VideoList';
+import { selectItems } from './selectors';
+
+class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <div>
+        <VideoList items={this.props.items} />
+        <span> {this.props.curIndex} </span>
+      </div>
     );
   }
 }
+
+HomePage.propTypes = {
+  items: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.array,
+  ]).isRequired,
+  curIndex: React.PropTypes.number,
+};
+
+const mapStateToProps = createStructuredSelector({
+  items: selectItems(),
+  curIndex: (state, ownProps) => ownProps.params.id,
+});
+
+export default connect(mapStateToProps)(HomePage);
+
