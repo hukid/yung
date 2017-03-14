@@ -1,10 +1,12 @@
 import { fromJS } from 'immutable';
+import { sermon20140209 } from './sermons/20140209/data';
+import { sermon20140331 } from './sermons/20140331/data';
 
 // The initial state of the App
 const initialState = fromJS({
   items: [
-    '1',
-    '2',
+    sermon20140209,
+    sermon20140331,
   ],
 });
 
