@@ -1,7 +1,9 @@
+/* eslint-disable no-mixed-operators */
+
 export const sermon20140209 = {
   id: '20140209',
   videoId: 'OlQkWydT2po',
-  title: '遵行天父的旨意(2)',
+  title: '2014-02-09: 遵行天父的旨意(上)',
   slidesTimings: [
     0 * 60 + 26,
     1 * 60 + 21,

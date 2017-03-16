@@ -32,7 +32,7 @@ module.exports = (options) => ({
     }, {
       test: /\.(jpg|png|gif|JPG)$/,
       loaders: [
-        'file-loader',
+        'file-loader?name=./img/[hash].[ext]',
         {
           loader: 'image-webpack-loader',
           query: {

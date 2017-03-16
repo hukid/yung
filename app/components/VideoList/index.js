@@ -18,7 +18,7 @@ function VideoList(props) {
     content = props.items.map((item, index) => (
       <ListItem key={`item-${index}`}>
         <Link to={`/${index}`}>
-          item
+          {item.title}
         </Link>
       </ListItem>
     ));

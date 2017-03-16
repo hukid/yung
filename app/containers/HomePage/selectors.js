@@ -7,7 +7,7 @@ const selectItems = () => createSelector(
   (home) => home.get('items').toJS(),
 );
 
-const selectCurIndex = () => (state, ownProps) => ownProps.params.id ? Number(ownProps.params.id) : -1;
+const selectCurIndex = () => (state, ownProps) => ownProps.params.id ? Number(ownProps.params.id) : 0;
 
 export {
   selectItems,
