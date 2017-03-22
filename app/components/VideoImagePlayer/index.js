@@ -48,7 +48,7 @@ class VideoImagePlayer extends React.PureComponent { // eslint-disable-line reac
 
   onPlayerReady(event) {
     // event.target.playVideo();
-    console.log('player is ready');
+    // console.log('player is ready');
     // this.player = event.target;
   }
 
@@ -57,10 +57,10 @@ class VideoImagePlayer extends React.PureComponent { // eslint-disable-line reac
       || event.data === YT.PlayerState.PAUSED
       || event.data === YT.PlayerState.BUFFERING) {
       this.startProgressWatcher();
-      console.log(`started watcher`);
+      // console.log(`started watcher`);
     } else {
       this.stopProgressWatcher();
-      console.log(`stoppped watcher`);
+      // console.log(`stoppped watcher`);
     }
   }
 
@@ -110,14 +110,14 @@ class VideoImagePlayer extends React.PureComponent { // eslint-disable-line reac
 
   startProgressWatcher() {
     if (!this.watcherStarted) {
-      console.log("starting watcher");
+      // console.log("starting watcher");
       this.watcherStarted = true;
       this.watcherId = setInterval(this.monitorSlides, 2000);
     }
   }
 
   stopProgressWatcher() {
-    console.log("stopping watcher");
+    // console.log("stopping watcher");
     if (this.watcherId) {
       clearInterval(this.watcherId);
     }
@@ -126,16 +126,16 @@ class VideoImagePlayer extends React.PureComponent { // eslint-disable-line reac
   }
 
   monitorSlides() {
-    console.log("monitoring player");
+    // console.log("monitoring player");
     if (this.props.curSermon.slidesTimings) {
-      console.log("monitoring updating slides");
+      // console.log("monitoring updating slides");
       const curProgressTime = this.player.getCurrentTime();
       // const slideObj = document.getElementById('slide');
       const curSermon = this.props.curSermon;
-      console.log(curProgressTime);
+      // console.log(curProgressTime);
       for (let i = curSermon.slidesTimings.length - 1; i >= 0; i -= 1) {
         if (curProgressTime > curSermon.slidesTimings[i]) {
-          console.log("switching slides");
+          // console.log("switching slides");
           this.slideObj.src = this.slideImages[curSermon.id][i].src;
           break;
         }
