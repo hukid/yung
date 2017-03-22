@@ -9,6 +9,7 @@ import { sermon20151115 } from 'sermons/20151115/data';
 import { sermon20160131 } from 'sermons/20160131/data';
 import { sermon20160320 } from 'sermons/20160320/data';
 import { sermon20160529 } from 'sermons/20160529/data';
+import { sermon20160828 } from 'sermons/20160828/data';
 import { sermon20161023 } from 'sermons/20161023/data';
 
 // The initial state of the App
@@ -24,6 +25,7 @@ const initialState = fromJS({
     sermon20160131,
     sermon20160320,
     sermon20160529,
+    sermon20160828,
     sermon20161023,
   ],
 });
