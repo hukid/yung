@@ -65,7 +65,7 @@ class VideoImagePlayer extends React.PureComponent { // eslint-disable-line reac
   }
 
   loadSlides() {
-    if (this.props.curSermon.slidesTimings) {
+    if (this.props.curSermon.slidesTimings || this.props.curSermon.slidesTimingMap) {
       this.loadImageSlides();
     } else {
 
@@ -76,11 +76,21 @@ class VideoImagePlayer extends React.PureComponent { // eslint-disable-line reac
     const id = this.props.curSermon.id;
     if (!this.slideImages[id]) {
       this.slideImages[id] = [];
-      for (let i = 1; i <= this.props.curSermon.slidesTimings.length; i += 1) {
-        this.slideImages[id][i - 1] = new Image();
-        const img = require(`sermons/${id}/slides/Slide${i}.JPG`);
-        this.slideImages[id][i - 1].src = img;
-        // this.slideImages[curSermon.id][i - 1].src = `./img/${curSermon.id}/Slide${i}.jpg`;
+
+      if (this.props.curSermon.slidesTimings) {
+        for (let i = 1; i <= this.props.curSermon.slidesTimings.length; i += 1) {
+          this.slideImages[id][i - 1] = new Image();
+          const img = require(`sermons/${id}/slides/Slide${i}.JPG`);
+          this.slideImages[id][i - 1].src = img;
+          // this.slideImages[curSermon.id][i - 1].src = `./img/${curSermon.id}/Slide${i}.jpg`;
+        }
+      } else if (this.props.curSermon.slidesTimingMap) {
+        for (let i = 1; i <= this.props.curSermon.slidesCount; i += 1) {
+          this.slideImages[id][i - 1] = new Image();
+          const img = require(`sermons/${id}/slides/Slide${i}.JPG`);
+          this.slideImages[id][i - 1].src = img;
+          // this.slideImages[curSermon.id][i - 1].src = `./img/${curSermon.id}/Slide${i}.jpg`;
+        }
       }
     }
 
@@ -127,7 +137,18 @@ class VideoImagePlayer extends React.PureComponent { // eslint-disable-line reac
 
   monitorSlides() {
     // console.log("monitoring player");
-    if (this.props.curSermon.slidesTimings) {
+    if (this.props.curSermon.slidesTimingMap) {
+      const curProgressTime = this.player.getCurrentTime();
+      const curSermon = this.props.curSermon;
+      var keys = Object.keys(this.props.curSermon.slidesTimingMap);
+      for (let i = curSermon.slidesTimingMap.length - 1; i >= 0; i -= 1) {
+        if (curProgressTime > curSermon.slidesTimingMap[i].ts) {
+          // console.log("switching slides");
+          this.slideObj.src = this.slideImages[curSermon.id][curSermon.slidesTimingMap[i].slide - 1].src;
+          break;
+        }
+      }
+    } else if (this.props.curSermon.slidesTimings) {
       // console.log("monitoring updating slides");
       const curProgressTime = this.player.getCurrentTime();
       // const slideObj = document.getElementById('slide');
@@ -152,7 +173,7 @@ class VideoImagePlayer extends React.PureComponent { // eslint-disable-line reac
       <PlayerWrapper>
         <h3>{this.props.curSermon.title}</h3>
         <div id="player" />
-        <ImageSlides hidden={!this.props.curSermon.slidesTimings} id="slide" alt="" />
+        <ImageSlides hidden={!!this.props.curSermon.iframeSrc} id="slide" alt="" />
         <iframe hidden={!this.props.curSermon.iframeSrc} id="slideFrame" width="49%" height="400" src={this.props.curSermon.iframeSrc} frameBorder="0" scrolling="no"></iframe>
       </PlayerWrapper>
     );
